@@ -9,7 +9,7 @@ struct {
 int main(){
 	int n=0, key, data;
 	for(;;){
-		putchar('>'); char c = getchar();
+		putchar('>'); int c = getchar();
 		if (c == 'q') break;
 		else if(c == '\n' || c == ' ') continue;
 		if (c == 'a'){ // add
