@@ -12,26 +12,26 @@ int main(){
 		putchar('>'); int c = getchar();
 		if (c == 'q') break;
 		else if (c == '\r' || c == '\n' || c == ' ') continue;
-		if(c == 'a'){
+		if(c == 'a'){ // add
 			putchar('a');putchar('>');putchar('>');
 			scanf("%d %d", &key, &data);
 			table[n].key = key;
 			table[n].data = data;
 			++n;
 		}
-		else if(c == 's'){
+		else if(c == 's'){ // search
 			putchar('s');putchar('>');putchar('>');
 			scanf("%d", &key);
 			for(int i = 0; i < n; ++i)
 				if(table[i].key == key)
 					printf("s>>> %d : %d %d\n", i, table[i].key, table[i].data);
 		}
-		else if(c == 'd'){
+		else if(c == 'd'){ // delete
 			putchar('d');putchar('>');putchar('>');
 			scanf("%d", &key);
 			int i;
 			for(i = 0; i < n; ++i)
-				if(table[i].key == key){ // delete
+				if(table[i].key == key){
 					table[i].key = 0;
 					table[i].data = 0;
 					--n;

@@ -45,13 +45,12 @@ int main(){
 			for(;low <= high;){
 				middle = (low + high) / 2;
 				if (table[middle].key == key)
-					{printf("%d : %d %d\n", middle, table[middle].key, table[middle].data);break;}
+					{printf("s>>> %d : %d %d\n", middle, table[middle].key, table[middle].data);break;}
 				else if (table[middle].key < key)
 					low = middle + 1;
 				else if (table[middle].key > key)
 					high = middle - 1;
 			}
-			puts("searching is finished.");
 		}
 		else if (c == 'd'){ // delete
 			putchar('>');putchar('>');scanf("%d", &key);
@@ -78,7 +77,7 @@ int main(){
 	}
 
 	// display array
-	puts("quit.");
+	puts("terminated");
 	for(int i = 0; i < n; ++i) printf("%d : %d %d\n", i, table[i].key, table[i].data);
 	return 0;
 }
