@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define QUEUE_SIZE 100
+#define QUEUE_SIZE 11
 typedef struct{
 	int front;
 	int rear;
@@ -37,11 +37,16 @@ int dequeue(Queue *queue){
 }
 
 int main(){
-	Queue queue = init();
-	printf("is_empty -> %d\n", is_empty(queue));
-	int values[10] = {-1, 0, 2, 3, 4,
-			  10, 3, -3, 11, 12};
 	int i;
+	Queue queue = init();
+	// dequeue(&queue);
+	
+	int values[11] = {-1, 0, 2, 3, 4,
+			  10, 3, -3, 11, 12, 13};
+	// for(i=0;i<11;++i) queue = enqueue(values[i], queue);
+	// for(int j = 0; j < 11; ++j) printf("%d ", dequeue(&queue));
+
+	printf("is_empty -> %d\n", is_empty(queue));
 	for(i=0; i < 5; ++i) queue = enqueue(values[i], queue);
 	for(int j = 0; j < 2; ++j) printf("%d ", dequeue(&queue));
 	printf("is_empty -> %d\n", is_empty(queue));
