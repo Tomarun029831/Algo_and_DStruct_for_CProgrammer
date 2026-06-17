@@ -7,20 +7,17 @@ typedef struct _stack {
 	int array[SIZE];
 } STACK;
 
-STACK init(STACK stack);
-STACK init(STACK stack){
-	stack.sp = 0;
+STACK init(){
+	STACK stack = {0, {0}};
 	return stack;
 }
 
-STACK push(int value, STACK stack);
 STACK push(int value, STACK stack){
 	if(stack.sp >= SIZE) exit(1);
 	stack.array[stack.sp++] = value;
 	return stack;
 }
 
-int pop(STACK* stack);
 int pop(STACK* stack){
 	if(stack->sp <= 0) exit(1);
 	int value = stack->array[--stack->sp];
@@ -28,7 +25,6 @@ int pop(STACK* stack){
 	return value;
 }
 
-int is_empty(STACK stack);
 int is_empty(STACK stack){
 	return (stack.sp == 0);
 }
