@@ -37,6 +37,8 @@ void quick(int array[], int size){
 		}
 		int t = *pivot; *pivot = *l; *l = t;
 
+		// 以下のようにすることで常に半分以下の長さの方をスタックに詰むので
+		// 空間計算量はO(logn)となり今回STUCK_SIZE=30より2^30の要素まで耐えられる。
 		int is_right_shorter = l-low[sp] > high[sp]-l;
 		if(is_right_shorter){
 			low[sp] = low[sp];
