@@ -5,7 +5,7 @@ void quick(int array[], int size){
 	if(l+1 >= r) return;
 	for(;;){
 		for(;*(++l)<*pivot;);
-		for(;array<=r&&*pivot<=*(--r););
+		for(;array<=--r&&*pivot<=*r;);
 		if(l>=r) break;
 		int t = *l;
 		*l = *r;
