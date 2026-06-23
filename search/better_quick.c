@@ -37,10 +37,18 @@ void quick(int array[], int size){
 		}
 		int t = *pivot; *pivot = *l; *l = t;
 
-		low[sp] = low[sp];
-		high[sp++] = l-1;
-		low[sp] = l+1;
-		high[sp++] = high[sp-1];
+		int is_right_shorter = l-low[sp] > high[sp]-l;
+		if(is_right_shorter){
+			low[sp] = low[sp];
+			high[sp++] = l-1;
+			low[sp] = l+1;
+			high[sp++] = high[sp-1];
+		}else{
+			low[sp] = l+1;
+			high[sp++] = high[sp];
+			low[sp] = low[sp-1];
+			high[sp++] = l-1;
+		}
 	}
 }
 
