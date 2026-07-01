@@ -1,13 +1,12 @@
 #include <stdio.h>
 
 const char *brute_force_search(const char *text, const char *pattern){
-	if(text==NULL || pattern==NULL) return NULL;
-	for(const char *t=text;;++t){
-		if(*t=='\0') return NULL;
+	if(text==NULL || pattern==NULL || *text == '\0' || *pattern == '\0') return NULL;
+	for(const char *t=text;;++t)
 		for(const char *c=t, *p=pattern;;++c,++p)
 			if(*p=='\0') return t;
+			else if(*c=='\0') return NULL;
 			else if(*c!=*p) break;
-	}
 }
 
 int main(){
