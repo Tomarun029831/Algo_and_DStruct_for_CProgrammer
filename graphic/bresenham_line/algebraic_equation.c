@@ -34,9 +34,11 @@ static void drawline_algebraic(const Point *const first, const Point *const last
 	const float dx=last->x-first->x;
 	const float dy=last->y-first->y;
 	const int steps=fmaxf(fabsf(dx),fabsf(dy));
+	printf("dx=%f dy=%f steps=%d\n", dx, dy, steps);
 	if (steps==0) {FRAMEBUFFER(first->x, first->y)=1; return;}
 	const float slope_x=dx/steps;
 	const float slope_y=dy/steps;
+	printf("slope_x=%f, slope_y=%f\n", slope_x, slope_y);
 
 	/*
 	 * y = a * x + b
@@ -48,6 +50,7 @@ static void drawline_algebraic(const Point *const first, const Point *const last
 	for (int t=0; t<=steps; ++t) {
 		const int x=roundf(slope_x*t+first->x);
 		const int y=roundf(slope_y*t+first->y);
+		printf("x=%d, y=%d\n", x, y);
 		FRAMEBUFFER(x, y)=1;
 	}
 }
