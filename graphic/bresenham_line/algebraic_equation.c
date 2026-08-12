@@ -31,20 +31,24 @@ static void display(const _Bool framebuffer[HEIGHT][WIDTH]){
 }
 
 static void drawline_algebraic(const Point *const first, const Point *const last, _Bool framebuffer[HEIGHT][WIDTH]){
-	const float dx = last->x - first->x;
-	const float dy = last->y - first->y;
-	if (fabsf(dx) < fabsf(dy)){
-		const float slope = dx/dy;
-		for (int y = first->y; y < last->y + 1; ++y) {
-			const int x = roundf(slope * (y - first->y) + first->x);
-			FRAMEBUFFER(x, y) = 1;
-		}
-		return;
-	}
-	const float slope = dy/dx;
-	for (int x = first->x; x < last->x + 1; ++x) {
-		const int y = roundf(slope * (x - first->x) + first->y);
-		FRAMEBUFFER(x, y) = 1;
+	const float dx=last->x-first->x;
+	const float dy=last->y-first->y;
+	const int steps=fmaxf(fabsf(dx),fabsf(dy));
+	if (steps==0) {FRAMEBUFFER(first->x, first->y)=1; return;}
+	const float slope_x=dx/steps;
+	const float slope_y=dy/steps;
+
+	/*
+	 * y = a * x + b
+	 * <->
+	 * x = t, y = a * t + b
+	 * <->
+	 * x = (t - b) / a, y = t
+	*/
+	for (int t=0; t<=steps; ++t) {
+		const int x=roundf(slope_x*t+first->x);
+		const int y=roundf(slope_y*t+first->y);
+		FRAMEBUFFER(x, y)=1;
 	}
 }
 
