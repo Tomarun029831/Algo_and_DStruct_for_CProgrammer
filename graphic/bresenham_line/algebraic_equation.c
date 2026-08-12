@@ -3,11 +3,20 @@
 #include <stdio.h>
 #include <string.h>
 
-typedef struct _point{
-	int x, y;
-} Point;
+typedef struct _point{ int x, y; } Point;
 #define HEIGHT 25
 #define WIDTH 50
+/*
+* *-----------------------> x
+* | .(x1, y1)
+* |
+* |
+* |     .(x2, y2)
+* |
+* v
+*
+* y
+*/
 static _Bool framebuffer[HEIGHT][WIDTH];
 #define FRAMEBUFFER(x, y) framebuffer[y][x]
 
@@ -32,9 +41,7 @@ static void drawline_algebraic(const Point *const first, const Point *const last
 }
 
 int main(){
-	for (size_t h=0; h<HEIGHT; ++h)
-		for (size_t w=0; w<WIDTH; ++w)
-			framebuffer[h][w]=0;
+	memset(framebuffer, 0, sizeof(framebuffer)); // init
 	const Point first={0, 0}, last={10, 1};
 
 	drawline_algebraic(&first, &last, framebuffer);
