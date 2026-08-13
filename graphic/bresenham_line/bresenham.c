@@ -121,17 +121,25 @@ static void display(const _Bool framebuffer[HEIGHT][WIDTH]){
 }
 
 static void drawline_bresenham(const Point *const first, const Point *const last, _Bool framebuffer[HEIGHT][WIDTH]){
-	const int dx=last->x-first->x,
-			  dy=last->y-first->y;
-	int D = 2*dy - dx,
-		current_y = first->y;
+	int x0=first->x, y0=first->y,
+		x1=last->x, y1=last->y;
+	if(x0>x1){
+		int temp = x0; x0 = x1; x1 = temp;
+		temp = y0; y0 = y1; y1 = temp;
+	}
+	int dx=x1-x0,
+		dy=y1-y0,
+		dir = dy<0 ? -1 : 1,
+		current_y = y0;
+	dy *= dir;
+	int D = 2*dy - dx;
 
-	for (int current_x = first->x; current_x<=last->x; ++current_x) {
+	for (int current_x = x0; current_x<=x1; ++current_x) {
 		FRAMEBUFFER(current_x, current_y) = 1;
 		if(D<0) D += 2*dy;
 		else {
 			D += 2*dy-2*dx;
-			current_y += 1;
+			current_y += dir;
 		}
 	}
 }
