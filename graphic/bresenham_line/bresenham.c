@@ -120,7 +120,26 @@ static void display(const _Bool framebuffer[HEIGHT][WIDTH]){
 	putchar('\n');
 }
 
-static void drawline_bresenham(const Point *const first, const Point *const last, _Bool framebuffer[HEIGHT][WIDTH]){
+static void drawline_bresenham(const Point *const first, const Point *const last, _Bool framebuffer[HEIGHT][WIDTH]) {
+    const int dx = last->x - first->x;
+    const int dy = last->y - first->y;
+    const int steps = (dx > dy) ? dx : dy;
+    const int inc_E  = 2 * dy;
+    const int inc_NE = 2 * (dy - dx);
+
+    int D = 2 * dy - dx;
+    int current_x = first->x;
+    int current_y = first->y;
+
+    for (int t = 0; t <= steps; ++t) {
+        FRAMEBUFFER(current_x, current_y) = 1;
+		if (D < 0) { D += inc_E; }
+		else {
+            D += inc_NE;
+            ++current_y;
+        }
+        ++current_x;
+    }
 }
 
 int main(){
