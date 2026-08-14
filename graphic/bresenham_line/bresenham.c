@@ -120,7 +120,7 @@ static void display(const _Bool framebuffer[HEIGHT][WIDTH]){
 	putchar('\n');
 }
 
-static void drawline_bresenham(const Point *const first, const Point *const last, _Bool framebuffer[HEIGHT][WIDTH]){
+static void drawline_bresenhamH(const Point *const first, const Point *const last, _Bool framebuffer[HEIGHT][WIDTH]){
 	int x0=first->x, y0=first->y,
 		x1=last->x, y1=last->y;
 	if(x0>x1){
@@ -143,6 +143,36 @@ static void drawline_bresenham(const Point *const first, const Point *const last
 		}
 	}
 }
+
+static void drawline_bresenhamV(const Point *const first, const Point *const last, _Bool framebuffer[HEIGHT][WIDTH]){
+	int x0=first->x, y0=first->y,
+		x1=last->x, y1=last->y;
+	if(y0>y1){
+		int temp=x0;x0=x1;x1=temp;
+		temp=y0;y0=y1;y1=temp;
+	}
+	int dx=x1-x0,
+		dy=y1-y0,
+		dir=dx<0?-1:1,
+		current_x=x0;
+	dx*=dir;
+	int D=2*dy-dx;
+
+	for(int current_y=y0; current_y<=y1; ++current_y){
+		FRAMEBUFFER(current_x,current_y)=1;
+		if(D<0) D+=2*dx;
+		else{
+			D+=2*dx-2*dy;
+			current_x+=dir;
+		}
+	}
+}
+
+static void drawline_bresenham(const Point *const first, const Point *const last, _Bool framebuffer[HEIGHT][WIDTH]){
+	if (abs(first->x - last->x) > abs(first->y - last->y)) drawline_bresenhamH(first, last, framebuffer);
+	else drawline_bresenhamV(first, last, framebuffer);
+}
+
 
 int main(){
 	memset(framebuffer, 0, sizeof(framebuffer)); // init
